@@ -1,5 +1,4 @@
 function [featureX, featureY] = featureMoravec(image, window)
-
     uv = [[1 0]; [1 1]; [0 1]; [-1 1]];
 
     % convert the image into luminance
@@ -16,11 +15,11 @@ function [featureX, featureY] = featureMoravec(image, window)
     if( ~exist('window') )
 	window = 5;
     end
-    %w = ones(window);
-    half = (window-1)/2;
-    [x, y] = meshgrid(-half:1:half, -half:1:half);
-    sigma = 2;
-    w = exp(-((x.*x+y.*y)/(2*sigma*sigma)));
+    w = ones(window);
+    %half = (window-1)/2;
+    %[x, y] = meshgrid(-half:1:half, -half:1:half);
+    %sigma = 2;
+    %w = exp(-((x.*x+y.*y)/(2*sigma*sigma)));
 
     % calculate E of Moravec corner detector
     for i = 1:4
@@ -35,7 +34,4 @@ function [featureX, featureY] = featureMoravec(image, window)
     % local maxima
     peakI = minE > imdilate(minE, [1 1 1; 1 0 1; 1 1 1]);
     [featureY, featureX] = find(peakI);
-    %[r, c] = find(peakI);
-    %features = [c; r]';
-
 end
