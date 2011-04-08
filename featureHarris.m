@@ -35,10 +35,19 @@ function [featureX, featureY] = featureHarris(image, window)
     Sxy = conv2(Ixy, gaussian, 'same');
 
     % define the matrix
+    M1 = [Sx2 Sxy; Sxy Sy2];
+    M2 = reshape(M1, [row 2 col 2]);
+    M = permute(M2, [1 3 2 4]);
 
     % the response of the detector
     k = 0.04;
-    R(:, :) = det(M(:, :)) - k * trace(M(:, :)) .^ 2;
+    R = zeros(row, col);
+    for i = 1:row
+	for j = 1:col
+	    m = reshape(M(i, j, :, :), [2 2]);
+	    R(i, j) = det(m) - k * trace(m) .^ 2;
+	end
+    end
 
     % threshold on value of R
     threshold = 2;
