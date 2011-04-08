@@ -2,6 +2,8 @@ function [featureX, featureY] = featureHarris(image, window, threshold)
 
     if( ~exist('window') )
 	window = 5;
+    elseif(rem(window, 2) == 0)
+	window = window + 1;
     end
     if( ~exist('threshold') )
 	threshold = 3;
@@ -14,6 +16,7 @@ function [featureX, featureY] = featureHarris(image, window, threshold)
     else
 	I = image;
     end
+    %I = I / 255;
 
     % prepare the gaussian kernel
     half = (window-1)/2;
@@ -39,9 +42,12 @@ function [featureX, featureY] = featureHarris(image, window, threshold)
     Sxy = conv2(Ixy, gaussian, 'same');
 
     % define the matrix
-    M1 = [Sx2 Sxy; Sxy Sy2];
-    M2 = reshape(M1, [row 2 col 2]);
-    M = permute(M2, [1 3 2 4]);
+    % method 1
+    %M1 = [Sx2 Sxy; Sxy Sy2];
+    %M2 = reshape(M1, [row 2 col 2]);
+    %M = permute(M2, [1 3 2 4]);
+    % method 2
+    M = reshape([Sx2 ; Sxy ; Sxy ; Sy2], [size(Ix) 2 2]);
 
     % the response of the detector
     k = 0.04;
