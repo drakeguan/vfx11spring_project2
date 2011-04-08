@@ -1,4 +1,11 @@
-function [featureX, featureY] = featureHarris(image, window)
+function [featureX, featureY] = featureHarris(image, window, threshold)
+
+    if( ~exist('window') )
+	window = 5;
+    end
+    if( ~exist('threshold') )
+	threshold = 3;
+    end
 
     % convert the image into luminance
     [row, col, channel] = size(image);
@@ -9,16 +16,13 @@ function [featureX, featureY] = featureHarris(image, window)
     end
 
     % prepare the gaussian kernel
-    if( ~exist('window') )
-	window = 5;
-    end
     half = (window-1)/2;
     [x, y] = meshgrid(-half:1:half, -half:1:half);
     sigma = 2;
     gaussian = exp(-((x.*x+y.*y)/(2*sigma*sigma)));
 
     % x and y derivatives of image
-    smoothI = conv2(I, gaussian, 'same'); % smooth
+    smoothI = conv2(double(I), gaussian, 'same'); % smooth
     [Ix, Iy] = gradient(smoothI); % gradient
 
     % products of derivatives
@@ -50,6 +54,5 @@ function [featureX, featureY] = featureHarris(image, window)
     end
 
     % threshold on value of R
-    threshold = 2;
     [featureY, featureX] = find(R > threshold);
 end
