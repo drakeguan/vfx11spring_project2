@@ -57,7 +57,7 @@ function [featureX, featureY, R] = featureHarris(image, w, sigma, threshold, rad
     R = (Sx2 .* Sy2 - Sxy .^ 2) - k * (Sx2 + Sy2) .^ 2;
 
     % threshold on value of R; compute nonmax suppression.
-    R2 = (R > threshold);
+    R2 = (R > threshold) & (R > imdilate(R, [1 1 1; 1 0 1; 1 1 1]));
     
     [featureY, featureX] = find(R2);
 end
