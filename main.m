@@ -7,11 +7,10 @@ function main(source)
     image = imread(source);
 
     %[featureX, featureY] = featureMoravec(image);
-    [featureX, featureY, R] = featureHarris(image, 5, 2);
-    numel(featureX)
-    %disp(sprintf('feature #: %d', numel(featureX));
+    [featureX, featureY, R] = featureHarris(image, 7, 1, 5);
+    disp(sprintf('feature number: %d.', numel(featureX)));
     plotFeaturesOverImage(image, featureX, featureY, '+');
 
-    figure(1);
-    imshow(R);
+    %figure(1);
+    %imshow(R);
 end

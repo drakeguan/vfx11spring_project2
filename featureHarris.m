@@ -1,5 +1,7 @@
 function [featureX, featureY, R] = featureHarris(image, w, sigma, threshold, radius, k)
     
+    disp('Harris corner detector.');
+
     if( ~exist('w') )
 	w = 5;
     elseif(rem(w, 2) == 0)
@@ -32,17 +34,30 @@ function [featureX, featureY, R] = featureHarris(image, w, sigma, threshold, rad
 	I = double(I);
     end
 
-    % Compute derivatives and elements of the structure tensor.
-    [Ix, Iy] = gradient(filterGaussian(I, sigma, w));
-    Sx2 = filterGaussian(Ix.^2, sigma, w);
-    Sy2 = filterGaussian(Iy.^2, sigma, w);    
-    Sxy = filterGaussian(Ix.*Iy, sigma, w);    
+    % smooth the image to remove noise
+    sI = filterGaussian(I, sigma, w);
 
+    % derivatives
+    [Ix, Iy] = gradient(sI);
+
+    % products of derivatives
+    Ix2 = Ix .^ 2;
+    Iy2 = Iy .^ 2;
+    Ixy = Ix .* Iy;
+    
+    % elements for the matrix M
+    Sx2 = filterGaussian(Ix2, sigma, w);
+    Sy2 = filterGaussian(Iy2, sigma, w);    
+    Sxy = filterGaussian(Ixy, sigma, w);    
+
+    % the response of the detector
+    %
     % R = det(M) - k*trace(M)^2
     %   = Sx2*Sy2 - Sxy*Sxy - k*(Sx2+Sy2)^2
-    R = (Sx2.*Sy2 - Sxy.^2) - k*(Sx2 + Sy2).^2; % Original Harris measure.
+    R = (Sx2 .* Sy2 - Sxy .^ 2) - k * (Sx2 + Sy2) .^ 2;
 
+    % threshold on value of R; compute nonmax suppression.
     R2 = (R > threshold);
     
-    [featureY, featureX] = find(R2);                % Find row,col coords.
+    [featureY, featureX] = find(R2);
 end
