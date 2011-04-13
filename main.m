@@ -10,6 +10,8 @@ function main(source, filename)
 
     %[featureX, featureY] = featureMoravec(image);
     [featureX, featureY, R] = featureHarris(image, 7, 1, 5);
+    [featureX, featureY, R] = rejectLowContrast(image, featureX, featureY, R);
+    [featureX, featureY, R] = rejectEdge(image, featureX, featureY, R);
     disp(sprintf('feature number: %d.', numel(featureX)));
     plotFeaturesOverImage(image, featureX, featureY, '+', filename);
 
