@@ -1,17 +1,17 @@
-function main(source, filename)
-    if ~exist('source')
-	source = '/tmp/drake/denny00.jpg';
+function main(src_img_file, filename)
+    if ~exist('src_img_file')
+	src_img_file = '/tmp/drake/denny00.jpg';
     end
 
     if ~exist('filename')
 	filename = '/tmp/featureHarris_result.png';
     end
-    image = imread(source);
+    im = imread(src_img_file);
 
-    %[featureX, featureY] = featureMoravec(image);
-    [featureX, featureY, R] = featureHarris(image, 7, 1, 5);
+    %[featureX, featureY] = featureMoravec(im);
+    [featureX, featureY, R] = featureHarris(im, 7, 1, 5);
     disp(sprintf('feature number: %d.', numel(featureX)));
-    plotFeaturesOverImage(image, featureX, featureY, '+', filename);
+    plotFeaturesOverImage(im, featureX, featureY, '+', filename);
 
     %figure(1);
     %imshow(R);
