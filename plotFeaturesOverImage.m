@@ -19,7 +19,11 @@ function plotFeaturesOverImage(im, featureX, featureY, style, filename)
     hold off;
 
     if exist('filename')
-	f = getframe(gcf);
-	imwrite(f.cdata, filename);
+	try
+	    f = getframe(gcf);
+	    imwrite(f.cdata, filename);
+	catch
+	    print(filename, sprintf('-S%d,%d', size(im, 1), size(im, 2)));
+	end_try_catch
     end
 end
