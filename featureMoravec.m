@@ -1,37 +1,43 @@
-function [featureX, featureY] = featureMoravec(image, window)
-    uv = [[1 0]; [1 1]; [0 1]; [-1 1]];
+function [featureX, featureY, R] = featureMoravec(image, w)
+
+    % width(size) of the weighting function
+    if( ~exist('w') )
+	w = 5;
+    end
 
     % convert the image into luminance
-    [row, col, channel] = size(image);
-    if(channel == 3)
+    dim = ndims(image);
+    if( dim == 3 )
 	I = rgb2gray(image);
     else
 	I = image;
     end
+    [row, col] = size(I);
 
-    E = zeros(size(uv, 1), row, col);
-
-    % weighting function
-    if( ~exist('window') )
-	window = 5;
+    % convert the image to double
+    if( ~isa(I, 'double'))
+	I = double(I);
     end
-    w = ones(window);
-    %half = (window-1)/2;
+
+    uv = [[1 0]; [1 1]; [0 1]; [-1 1]];
+    E = zeros(size(uv, 1), row, col);
+    weight = ones(w);
+    %half = (w-1)/2;
     %[x, y] = meshgrid(-half:1:half, -half:1:half);
     %sigma = 2;
-    %w = exp(-((x.*x+y.*y)/(2*sigma*sigma)));
+    %weight = exp(-((x.*x+y.*y)/(2*sigma*sigma)));
 
     % calculate E of Moravec corner detector
     for i = 1:4
 	shiftI = circshift(I, uv(i,:));
 	diffI = shiftI - I;
-	ssdI = diffI .* diffI; % sum of squared differences
-	E(i,:,:) = conv2(ssdI, w, 'same'); % summation of weighted ssd
+	ssdI = diffI .^ 2; % sum of squared differences
+	E(i,:,:) = conv2(ssdI, weight, 'same'); % summation of weighted ssd
     end
 
     minE = reshape(min(E), row, col);
 
     % local maxima
-    peakI = minE > imdilate(minE, [1 1 1; 1 0 1; 1 1 1]);
-    [featureY, featureX] = find(peakI);
+    R = minE > imdilate(minE, [1 1 1; 1 0 1; 1 1 1]);
+    [featureY, featureX] = find(R);
 end
