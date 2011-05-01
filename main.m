@@ -16,6 +16,7 @@ function main(src_img_file, filename)
 
     %[featureX, featureY] = featureMoravec(im);
     [featureX, featureY, R] = featureHarris(im, 7, 1, 5);
+
     [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R);
     [featureX, featureY, R] = rejectEdge(im, featureX, featureY, R);
 

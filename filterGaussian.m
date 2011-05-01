@@ -1,4 +1,4 @@
-function result = filterGaussian(image, sigma, w)
+function result = filterGaussian(im, sigma, w)
  
     if ~exist('w')
 	w = 5;
@@ -10,5 +10,5 @@ function result = filterGaussian(image, sigma, w)
     end
     
     filter = fspecial('gaussian', [w w], sigma);
-    result = filter2(filter, image);
+    result = filter2(filter, im);
 end
