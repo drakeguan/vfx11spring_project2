@@ -3,7 +3,7 @@ function [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R, 
     if( ~exist('threshold') )
 	threshold = 0.1;
 
-    [row, col] = size(I);
+    [row, col] = size(im);
     % convert the im into luminance
     dim = ndims(im);
     if( dim == 3 )
