@@ -27,7 +27,7 @@ function [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R, 
 
     newX = [];
     newY = [];
-    for i = 1:size(featureX)
+    for i = 1:numel(featureX)
 	if( contrast(featureY(i), featureX(i)) > threshold )
 	    newY = [newY featureY(i)];
 	    newX = [newX featureX(i)];
