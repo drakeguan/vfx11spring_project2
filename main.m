@@ -7,6 +7,11 @@ function main(src_img_file, filename)
 	filename = '/tmp/featureHarris_result.png';
     end
     im = imread(src_img_file);
+    imshow(im);
+    pause
+    im = warpCylindrical(im, 380);
+    imshow(im);
+    return;
 
     %[featureX, featureY] = featureMoravec(im);
     [featureX, featureY, R] = featureHarris(im, 7, 1, 5);
