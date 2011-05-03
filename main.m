@@ -16,11 +16,10 @@ function [desc1, desc2] = main(src_img_file, filename)
     src_img_file2 = '/tmp/drake/prtn05.jpg';
     [featureX1, featureY1, pos1, orient1, desc1, im1, R1] = featureDetection(src_img_file1, debug_);
     [featureX2, featureY2, pos2, orient2, desc2, im2, R2] = featureDetection(src_img_file2, debug_);
-    disp(sprintf('# of desc1: %d', size(desc1, 1)));
-    disp(sprintf('# of desc2: %d', size(desc2, 1)));
+
     match = featureMatching(desc1, desc2);
+    disp('matching...');
     disp(match);
-    disp(size(match, 1));
 
     %figure(1);
     %imshow(R);
