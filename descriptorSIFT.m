@@ -1,9 +1,10 @@
 function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
+    % borrowed from Thomas F. El-Maraghi
+    % May 2004
 
     pos = [];
     orient = [];
     desc = [];
-    [row, col] = size(im);
 
     % convert the im into luminance
     dim = ndims(im);
@@ -12,6 +13,7 @@ function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
     else
         I = im;
     end
+    [row, col] = size(I);
 
     % convert the image to double
     if( ~isa(I, 'double'))
@@ -19,7 +21,7 @@ function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
     end
 
     % gaussian-smoothed the image to remove some noise in advance
-    L = filter2(fspecial('gaussian', [5 5]), I);
+    L = filter2(fspecial('gaussian', [5 5]), I);    % FIXME
 
     % Compute x and y derivatives using pixel differences
     %   the first and the last elements are ignored to ease the computing.
@@ -50,9 +52,9 @@ function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
     hist_orient = [-pi:hist_step:(pi-hist_step)];
 
     % Create a gaussian weighting mask
-    %   sigma = 1.5 * scale of the keypoint! TODO
-    sigma = 0.75;
-    sz = 7;
+    %   sigma = 1.5 * scale of the keypoint!
+    sigma = 0.75;   % FIXME
+    sz = 7;	    % FIXME
     hf_sz = floor(sz/2);
     g = fspecial('gaussian', [sz sz], sigma);
 
@@ -62,7 +64,7 @@ function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
         x = featureX(k);
         y = featureY(k);
 
-	%disp([y, x]);
+        %disp([y, x]);
         weightedMag = g .* mag((y-hf_sz):(y+hf_sz), (x-hf_sz):(x+hf_sz));
         grad_window = L((y-hf_sz):(y+hf_sz), (x-hf_sz):(x+hf_sz));
         orient_hist = zeros(length(hist_orient), 1);
@@ -204,3 +206,5 @@ function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
         desc = [desc; feat_desc];
     end
 end
+
+% vim: set et sw=4 sts=4 nu:
