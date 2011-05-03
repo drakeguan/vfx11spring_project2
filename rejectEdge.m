@@ -1,10 +1,9 @@
 function [featureX, featureY, R] = rejectEdge(im, featureX, featureY, R, threshold)
 
     if( ~exist('threshold') )
-	threshold = 10;
+	threshold = ((10+1)^2)/10;
     end
 
-    [row, col] = size(im);
     % convert the im into luminance
     dim = ndims(im);
     if( dim == 3 )
@@ -12,6 +11,7 @@ function [featureX, featureY, R] = rejectEdge(im, featureX, featureY, R, thresho
     else
 	I = im;
     end
+    [row, col] = size(I);
 
     % convert the image to double
     if( ~isa(I, 'double'))

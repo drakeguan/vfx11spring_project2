@@ -1,10 +1,9 @@
 function [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R, threshold)
 
     if( ~exist('threshold') )
-	threshold = 15; % 15/255
+	threshold = 20; % 15/255
     end
 
-    [row, col] = size(im);
     % convert the im into luminance
     dim = ndims(im);
     if( dim == 3 )
@@ -12,6 +11,7 @@ function [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R, 
     else
 	I = im;
     end
+    [row, col] = size(I);
 
     % convert the image to double
     if( ~isa(I, 'double'))
