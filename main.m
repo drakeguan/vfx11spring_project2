@@ -11,16 +11,20 @@ function main(src_img_file, filename)
     %imshow(im);
     im = warpCylindrical(im, 1000);
     %figure;
-    %imshow(im);
-    %return;
+    %imshow(uint8(im));
 
     %[featureX, featureY] = featureMoravec(im);
     [featureX, featureY, R] = featureHarris(im, 7, 1, 5);
+    disp(numel(featureX));
 
     [featureX, featureY] = rejectBoundary(im, featureX, featureY, R);
+    disp(numel(featureX));
     [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R);
+    disp(numel(featureX));
     [featureX, featureY, R] = rejectEdge(im, featureX, featureY, R);
-    %descriptorSIFT(im, featureX, featureY);
+    disp(numel(featureX));
+    [pos, scale, orient, desc] = descriptorSIFT(im, featureX, featureY);
+    disp(numel(desc));
 
     disp(sprintf('feature number: %d.', numel(featureX)));
     plotFeaturesOverImage(im, featureX, featureY, '+', filename);
