@@ -1,4 +1,9 @@
-function match = featureMatching(desc1, desc2)
+function match = featureMatching(desc1, desc2, pos1, pos2, threshold)
+
+    if ~exist('threshold')
+        threshold = 20;     % FIXME
+    end
+
     match = [];
 
     for i = 1:size(desc1, 1)
@@ -10,7 +15,9 @@ function match = featureMatching(desc1, desc2)
         dists(min1_idx) = [];
         min2 = min(dists);
         if (min1/min2) < 0.8
-            match = [match; [i min1_idx]];
+            if abs(pos1(i, 2) - pos2(min1_idx, 2)) < threshold
+                match = [match; [i min1_idx]];
+            end
         end
     end
 end
