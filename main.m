@@ -15,18 +15,17 @@ function main(src_img_file, filename)
 
     %[featureX, featureY] = featureMoravec(im);
     [featureX, featureY, R] = featureHarris(im, 7, 1, 5);
-    disp(numel(featureX));
+    disp(sprintf('feature number: %d.', numel(featureX)));
 
     [featureX, featureY] = rejectBoundary(im, featureX, featureY, R);
-    disp(numel(featureX));
+    disp(sprintf('feature number after rejection of boundary: %d.', numel(featureX)));
     [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R);
-    disp(numel(featureX));
+    disp(sprintf('feature number after rejection of low-contrast: %d.', numel(featureX)));
     [featureX, featureY, R] = rejectEdge(im, featureX, featureY, R);
-    disp(numel(featureX));
+    disp(sprintf('feature number after rejection of edge: %d.', numel(featureX)));
     [pos, scale, orient, desc] = descriptorSIFT(im, featureX, featureY);
-    disp(numel(desc));
+    disp(sprintf('feature number of SIFT descriptors: %d.', numel(desc)));
 
-    disp(sprintf('feature number: %d.', numel(featureX)));
     plotFeaturesOverImage(im, featureX, featureY, '+', filename);
 
     %figure(1);
