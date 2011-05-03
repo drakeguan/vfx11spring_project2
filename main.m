@@ -23,8 +23,8 @@ function main(src_img_file, filename)
     disp(sprintf('feature number after rejection of low-contrast: %d.', numel(featureX)));
     [featureX, featureY, R] = rejectEdge(im, featureX, featureY, R);
     disp(sprintf('feature number after rejection of edge: %d.', numel(featureX)));
-    [pos, scale, orient, desc] = descriptorSIFT(im, featureX, featureY);
-    disp(sprintf('feature number of SIFT descriptors: %d.', size(pos, 1)));
+    [pos, orient, desc] = descriptorSIFT(im, featureX, featureY);
+    disp(sprintf('number of SIFT descriptors: %d.', size(pos, 1)));
 
     plotFeaturesOverImage(im, featureX, featureY, '+', filename);
 

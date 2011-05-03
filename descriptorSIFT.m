@@ -1,8 +1,7 @@
-function [pos, scale, orient, desc] = descriptorSIFT(im, featureX, featureY)
+function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
 
     pos = [];
     orient = [];
-    scale = [];
     desc = [];
     [row, col] = size(im);
 
@@ -112,8 +111,6 @@ function [pos, scale, orient, desc] = descriptorSIFT(im, featureX, featureY)
             % Store the keypoint position, orientation, and scale information
             pos = [pos; [x y]];
             orient = [orient; max_orient];
-            %scale = [scale; octave interval absolute_sigma(octave,interval)];
-            scale = [scale; 5]; % TODO
 
             % Get the next peak
             peaks(ipeak) = 0;
