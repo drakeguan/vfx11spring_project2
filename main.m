@@ -7,9 +7,16 @@ function main(src_img_file, filename)
 	filename = '/tmp/featureHarris_result.png';
     end
     im = imread(src_img_file);
+    %figure;
+    %imshow(im);
+    im = warpCylindrical(im, 1000);
+    %figure;
+    %imshow(im);
+    %return;
 
     %[featureX, featureY] = featureMoravec(im);
     [featureX, featureY, R] = featureHarris(im, 7, 1, 5);
+
     [featureX, featureY, R] = rejectLowContrast(im, featureX, featureY, R);
     [featureX, featureY, R] = rejectEdge(im, featureX, featureY, R);
 
