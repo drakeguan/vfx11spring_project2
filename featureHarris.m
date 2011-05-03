@@ -1,4 +1,4 @@
-function [featureX, featureY, R] = featureHarris(image, w, sigma, threshold, radius, k)
+function [featureX, featureY, R] = featureHarris(im, w, sigma, threshold, radius, k)
     
     disp('Harris corner detector.');
 
@@ -21,15 +21,15 @@ function [featureX, featureY, R] = featureHarris(image, w, sigma, threshold, rad
     end
 
     % convert the image into luminance
-    dim = ndims(image);
+    dim = ndims(im);
     if( dim == 3 )
-	I = rgb2gray(image);
+	I = rgb2gray(im);
     else
-	I = image;
+	I = im;
     end
     [row, col] = size(I);
 
-    % convert the image to double
+    % convert the im to double
     if( ~isa(I, 'double'))
 	I = double(I);
     end
@@ -60,10 +60,6 @@ function [featureX, featureY, R] = featureHarris(image, w, sigma, threshold, rad
     R2 = (R > threshold);
     % compute nonmax suppression.
     R2 = R2 & (R > imdilate(R, [1 1 1; 1 0 1; 1 1 1]));
-    % remove the boundary
-    inner = zeros(size(I));
-    inner(3:end-3, 3:end-3) = 1;
-    R2 = R2 & inner;
     
     [featureY, featureX] = find(R2);
 end
