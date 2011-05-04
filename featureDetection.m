@@ -4,7 +4,11 @@ function [featureX, featureY, pos, orient, desc, im, R] = featureDetection(im_na
         debug_ = 0;
     end
 
-    im = imread(im_name);
+    if exist('jpgread')
+        im = jpgread(im_name);
+    else
+        im = imread(im_name);
+    end
     %figure;
     %imshow(im);
     im = warpCylindrical(im, 1000);     % FIXME

@@ -1,4 +1,4 @@
-function main(src_img_file, filename)
+%function main(src_img_file, filename)
     if ~exist('src_img_file')
 	src_img_file = '/tmp/drake/prtn00.jpg';
     end
@@ -21,7 +21,10 @@ function main(src_img_file, filename)
     [featureX2, featureY2, pos2, orient2, desc2, im2, R2] = featureDetection(src_img_file2, debug_);
 
     match = featureMatching(desc1, desc2, pos1, pos2);
+    match = ransac(match, pos1, orient1, desc1, pos2, orient2, desc2);
     disp('matching...');
-    disp(match);
-    display2MatchingImage(im1, im2, pos1, pos2, match);
-end
+    %disp(match);
+    displayMatchInTerminal(pos1, pos2, match);
+    %display2MatchingImage(im1, im2, pos1, pos2, match);
+
+%end
