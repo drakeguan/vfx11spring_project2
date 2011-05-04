@@ -1,5 +1,5 @@
 function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
-    % borrowed from Thomas F. El-Maraghi
+    % borrowed and modified from Thomas F. El-Maraghi
     % May 2004
 
     pos = [];
