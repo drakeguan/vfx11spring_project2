@@ -164,7 +164,11 @@ function [pos, orient, desc] = descriptorSIFT(im, featureX, featureY)
 
             % Interpolate the gradient at the sample position
             [X Y] = meshgrid( (x_sample-1):(x_sample+1), (y_sample-1):(y_sample+1) );
-            G = interp2( I, X, Y, '*linear' );
+            try
+                G = interp2( I, X, Y, '*linear' );
+            catch
+                G = interp2( I, X, Y, 'linear' );
+            end
             G(find(isnan(G))) = 0;
             Dx = 0.5*(G(2,3) - G(2,1));
             Dy = 0.5*(G(3,2) - G(1,2));
