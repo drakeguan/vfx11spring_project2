@@ -82,6 +82,8 @@ distances of their SIFT descriptors. If the distance is smaller than
 match for p_A. Otherwise, we assume that there is no match for p_A
 in image B.
 
+[![feature matching](vfx11spring_project2/raw/master/image/feature_matching.jpg "feature matching")](vfx11spring_project2/raw/master/image/feature_matching.jpg "feature matching")
+
 ### Image matching
 
 The translation warping is used for image blending modeled by Ax = b, which is solved by matlab's *x = A\b.
@@ -92,4 +94,38 @@ A linear alpha blending is used to blend 2 adjacent images.
 
 ## Result
 
+![](vfx11spring_project2/raw/master/image/stitched/taipei_maple_stitched.jpg)
+
 ## Discussion
+
+There are several weakness in this implementation:
+
+* It would be better if the sub-pixel accurate feature position is used.
+* The solver to model the warping between adjacent images is really naive, just the 2D translation. A more general affien transformation model can be used and feed into Ax = b. But I think it would add some more efforts on image blending later on.
+* The most need-to-enhance part is image blending!
+
+## Codes
+
+* main.m: main entry.
+* blendImage.m: image blending.
+* descriptorDistance.m: L2-norm for distance between descriptors.
+* descriptorSIFT.m: SIFT descriptor representation.
+* display2MatchingImage.m: display matching points over the image.
+* display_keypoints.m: display keypoints with orientation.
+* displayMatchInTerminal.m: display matching directly on terminal for debugging.
+* featureDetection.m: feature detection.
+* featureHarris.m: Harris feature detector.
+* featureMatching.m: feature matching.
+* featureMoravec.m: Moravec feature detector.
+* featureSIFT.m: SIFT feature detector, empty.
+* filterGaussian.m: Gaussian filter.
+* imageMatching.m: image matching.
+* imRead.m: image reader.
+* plotFeaturesOverImage.m: plot features as '+' on the image.
+* ransac.m: RANSAC for feature descriptors.
+* rejectBoundary.m: feature removal by boundary.
+* rejectEdge.m: feature removal by edge.
+* rejectLowContrast.m: feature removal by low contrast.
+* solverTranslation.m: image matching with model of 2D translation.
+* unwarpCylindrical.m: cylindrical unwarping.
+* warpCylindrical.m: cylindrical warping.
