@@ -56,9 +56,39 @@ Moravec and Harris feature detectors are both implemented. I implemented Moravec
 
 In order to make it much clear and helpful for begineers like me, I designed 4 testing images and feed them into Moravec detector.
 
+![](vfx11spring_project2/raw/master/image/testDetector/test01.jpg)
+![](vfx11spring_project2/raw/master/image/testDetector/test02.jpg)
+![](vfx11spring_project2/raw/master/image/testDetector/test03.jpg)
+![](vfx11spring_project2/raw/master/image/testDetector/test04.jpg)
+![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test01.jpg)
+![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test02.jpg)
+![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test03.jpg)
+![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test04.jpg)
+
+There are still too many features on those simple testing images but at least, they reveals much clear sense of how it works.
+
+### Feature descriptor
+
+The SIFT descriptor is adopted cause it looks much stable and reliable.
+
 ### Feature matching
+
+I use L2 distance to measure the similarity of features. The following is the idea suggested by someone.
+
+> For each feature p_A in image A, you will try to find its best match
+in image B. You can first find the closest match p_B in terms of L2
+distances of their SIFT descriptors. If the distance is smaller than
+0.4*(the distance to the second best match), then p_B is a correct
+match for p_A. Otherwise, we assume that there is no match for p_A
+in image B.
+
 ### Image matching
+
+The translation warping is used for image blending modeled by Ax = b, which is solved by matlab's *x = A\b.
+
 ### Image blending
+
+A linear alpha blending is used to blend 2 adjacent images.
 
 ## Result
 
