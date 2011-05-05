@@ -1,5 +1,8 @@
-function [featureX, featureY, pos, orient, desc, im, R] = featureDetection(im_name, warp, debug_)
+function [featureX, featureY, pos, orient, desc, im, R] = featureDetection(im_name, focal_length, warp, debug_)
 
+    if ~exist('focal_length')
+        focal_length = 800;
+    end
     if ~exist('warp')
         warp = 1;
     end
@@ -11,7 +14,7 @@ function [featureX, featureY, pos, orient, desc, im, R] = featureDetection(im_na
     %figure;
     %imshow(im);
     if warp
-        im = warpCylindrical(im, 800);     % FIXME
+        im = warpCylindrical(im, focal_length);     % FIXME
     end
     %figure;
     %imshow(uint8(im));
