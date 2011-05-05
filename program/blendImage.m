@@ -1,7 +1,7 @@
 function imout = blendImage(im1, im2, trans)
 
     % assumption
-    %   trans = [dX, dY]; dX < 0; dY > 0;
+    %   trans = [dX, dY]; dX < 0;
     %   im1 and im2 are 3-channel images.
     %   images might be warpped.
 
