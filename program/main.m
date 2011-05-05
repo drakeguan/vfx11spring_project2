@@ -2,7 +2,7 @@ function main()
 
     sequence = 'taipei_maple';      % sequence name
     rootPath = ['../image/original/' sequence];     % root path of the sequence
-    outFile = 'stitched.png';       % output stitched file.
+    outFile = [sequence '_stitched.png'];       % output stitched file.
     N = 22;     % number of images in the sequence
     focal_length = 800;     % pseudo focal length
     debug_ = 1;     % output debug msg?
