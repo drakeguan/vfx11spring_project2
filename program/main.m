@@ -6,8 +6,8 @@ function main()
     N = 22;     % number of images in the sequence
     focal_length = 800;     % pseudo focal length
     debug_ = 1;     % output debug msg?
-    cache = 1;      % cache mode? use saved .mat files.
-    saveCache = 0;  % save the result to the cache files?
+    cache = 0;      % cache mode? use saved .mat files.
+    saveCache = 1;  % save the result to the cache files?
 
 
 
