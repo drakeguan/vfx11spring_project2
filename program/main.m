@@ -2,6 +2,7 @@ function main()
 
     sequence = 'taipei_maple';      % sequence name
     rootPath = ['../image/original/' sequence];     % root path of the sequence
+    %rootPath = '/tmp/drake';
     outFile = [sequence '_stitched.png'];       % output stitched file.
     N = 22;     % number of images in the sequence
     focal_length = 800;     % pseudo focal length
@@ -11,10 +12,11 @@ function main()
 
 
 
+    %cache = 1;
     disp('[image loading] begin...');
     tic;
     for i = 1:N
-        src_img_file = sprintf('%s/%02d.jpg', rootPath, i);
+        src_img_file = sprintf('%s/%02d.jpg', rootPath, (i));
         disp(sprintf('loading... %s', src_img_file));
 
         if cache
@@ -32,7 +34,7 @@ function main()
     disp('[feature detection] begin...');
     tic;
     for i = 1:N
-        src_img_file = sprintf('%s/%02d.jpg', rootPath, i);
+        src_img_file = sprintf('%s/%02d.jpg', rootPath, (i));
         disp(sprintf('processing... %s', src_img_file));
 
         if cache
@@ -51,14 +53,13 @@ function main()
                 save(sprintf('mat/orient_%02d.mat', i), 'orient');
                 save(sprintf('mat/desc_%02d.mat', i), 'desc');
             end
-
             ims{i} = im;
-            fxs{i} = fx;
-            fys{i} = fy;
-            poss{i} = pos;
-            orients{i} = orient;
-            descs{i} = desc;
         end
+        fxs{i} = fx;
+        fys{i} = fy;
+        poss{i} = pos;
+        orients{i} = orient;
+        descs{i} = desc;
     end
     if saveCache
         save('mat/fxs.mat', 'fxs');
@@ -103,13 +104,14 @@ function main()
 
 
 
+    %cache = 0;
     disp('[image matching] begin...');
     tic;
     if cache
         load('mat/trans.mat');
     else
         for i = 1:(N-1)
-            tran = solverTranslation(matchCompact, poss{i}, poss{i+1});
+            tran = solverTranslation(matchCompacts{i}, poss{i}, poss{i+1});
             trans{i} = tran;
         end
     end
@@ -127,6 +129,7 @@ function main()
     tic;
     imNow = ims{1};
     for i  = 2:N
+        disp(sprintf('merge %d and %d with tran (%d, %d)', (i-1), i, trans{i-1}(1), trans{i-1}(2)));
         imNow = blendImage(imNow, ims{i}, trans{i-1});
     end
     imwrite(uint8(imNow), outFile);
