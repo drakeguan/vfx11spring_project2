@@ -5,8 +5,6 @@ D99944013,
 Shuen-Huei (Drake) Guan,
 (drake.guan@gmail.com)
 
-something aweful, [[[[[
-
 doc online: [https://github.com/drakeguan/vfx11spring_project2/](https://github.com/drakeguan/vfx11spring_project2/ "online document")
 
 # [Digital Visual Effects 2011 Spring](http://www.csie.ntu.edu.tw/~cyy/courses/vfx/11spring/ "Digital Visual Effects 2011 Spring") @ CSIE.NTU.EDU.TW
