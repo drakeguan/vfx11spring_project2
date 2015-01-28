@@ -52,18 +52,18 @@ Photos are shot with a tripod in [Taipei Maple (台北奧萬大)](http://takeabr
 
 Moravec and Harris feature detectors are both implemented. I implemented Moravec to have the first idea about how feature detector works. The first trial is really terrible. Without any feature removal techniques, there are thousands of features in the following image. It's really hard to tell they are features or not.
 
-[![first trial of feature detector, Moravec](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_by_gaussian_window.jpg "first trial of feature detector, Moravec")](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_by_gaussian_window.jpg "first trial of feature detector, Moravec")
+[![first trial of feature detector, Moravec](image/testDetector/featuresOverImage_by_gaussian_window.jpg "first trial of feature detector, Moravec")](image/testDetector/featuresOverImage_by_gaussian_window.jpg "first trial of feature detector, Moravec")
 
 In order to make it much clear and helpful for begineers like me, I designed 4 testing images and feed them into Moravec detector.
 
-![](vfx11spring_project2/raw/master/image/testDetector/test01.jpg)
-![](vfx11spring_project2/raw/master/image/testDetector/test02.jpg)
-![](vfx11spring_project2/raw/master/image/testDetector/test03.jpg)
-![](vfx11spring_project2/raw/master/image/testDetector/test04.jpg)
-![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test01.jpg)
-![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test02.jpg)
-![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test03.jpg)
-![](vfx11spring_project2/raw/master/image/testDetector/featuresOverImage_test04.jpg)
+![](image/testDetector/test01.jpg)
+![](image/testDetector/test02.jpg)
+![](image/testDetector/test03.jpg)
+![](image/testDetector/test04.jpg)
+![](image/testDetector/featuresOverImage_test01.jpg)
+![](image/testDetector/featuresOverImage_test02.jpg)
+![](image/testDetector/featuresOverImage_test03.jpg)
+![](image/testDetector/featuresOverImage_test04.jpg)
 
 There are still too many features on those simple testing images but at least, they reveals much clear sense of how it works.
 
@@ -82,7 +82,7 @@ distances of their SIFT descriptors. If the distance is smaller than
 match for p_A. Otherwise, we assume that there is no match for p_A
 in image B.
 
-[![feature matching](vfx11spring_project2/raw/master/image/feature_matching.jpg "feature matching")](vfx11spring_project2/raw/master/image/feature_matching.jpg "feature matching")
+[![feature matching](image/feature_matching.jpg "feature matching")](image/feature_matching.jpg "feature matching")
 
 ### Image matching
 
@@ -94,7 +94,7 @@ A linear alpha blending is used to blend 2 adjacent images.
 
 ## Result
 
-![](vfx11spring_project2/raw/master/image/stitched/taipei_maple_stitched.jpg)
+![](image/stitched/taipei_maple_stitched.jpg)
 
 ## Discussion
 
