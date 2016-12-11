@@ -4,6 +4,7 @@
 D99944013,
 Shuen-Huei (Drake) Guan,
 (drake.guan@gmail.com)
+[![](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg)](https://saythanks.io/to/drakeguan)
 
 doc online: [https://github.com/drakeguan/vfx11spring_project2/](https://github.com/drakeguan/vfx11spring_project2/ "online document")
 
@@ -103,6 +104,7 @@ There are several weakness in this implementation:
 * It would be better if the sub-pixel accurate feature position is used.
 * The solver to model the warping between adjacent images is really naive, just the 2D translation. A more general affien transformation model can be used and feed into Ax = b. But I think it would add some more efforts on image blending later on.
 * The most need-to-enhance part is image blending!
+* [![](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg)](https://saythanks.io/to/drakeguan)
 
 ## Codes
 
